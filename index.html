@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>index.html</title>
+        <style>
+            .contents {
+                text-align: center;
+            }
+            .text-block {
+                height: 100px;
+                font-size: 30px;
+                padding-top: 10px;
+            }
+            .result-block {
+                font-size: 30px;
+            }
+            .img-block {
+                height: 300px;
+            }
+            .img {
+                display: inline-block;
+                height: 200px;
+                width: 200px;
+                margin: 30px;
+            }
+            .img img {
+                display: none;
+                height: 180px;
+            }
+            .btn {
+                line-height: 0px;
+                margin: 0 15px;
+                border-radius: 100px;
+                width: 90px;
+                height: 90px;
+                vertical-align: top;
+                transition: all 0.1s ease 0s;
+            }
+            .btn:focus {
+                outline:0;
+            }
+            .btn:hover {
+                cursor: pointer;
+                transform: scale(1.2, 1.2);
+            }
+            .btn1 {
+                background-color:#ff2c56
+            }
+            .btn2 {
+                background-color:#fff457
+            }
+            .btn3 {
+                background-color:#1e90ff
+            }
+            .resetBtn {
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="contents">
+            <div class="text-block">
+                <p id="text">じゃんけんしよう！</p>
+            </div>
+            
+            <div class="result-block">
+            </div>
+            
+            <div class="img-block">
+                <div class="img">
+                    <img id="myImg" src="グー.png">
+                </div>
+                <div class="img">
+                    <img id="oppImg" src="グー.png">
+                </div>
+            </div>
+            
+            <div class="btn-block">
+                <div>
+                    <button class="btn btn1" onclick="select(0)">
+                        <img class="mySelect" src="グー.png" height="55px"><br>
+                    </button>
+                    <button class="btn btn2" onclick="select(1)">
+                        <img class="mySelect" src="チョキ.png" height="60px"><br>
+                    </button>
+                    <button class="btn btn3" onclick="select(2)">
+                         <img class="mySelect" src="パー.png" height="60px"><br>
+    　　            </button>
+                </div>
+                <button class="resetBtn" onclick="resetGame()">
+                    <p>もう一度</p>
+                </button>  
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+        let textTag = document.getElementById("text");
+        let myimgTag = document.getElementById("myImg");
+        let oppimgTag = document.getElementById("oppImg");
+        let resultBlock = document.querySelector(".result-block");
+
+        let results = ["・","・","・"];
+        let hands = ["グー","チョキ","パー"];
+        let count = 0;
+        
+        resultBlock.innerHTML = results.join("");
+
+        let select = (mySelect) => {
+            let oppSelect = Math.floor(Math.random()*3);
+
+            myimgTag.style.display = "inline";
+            oppimgTag.style.display = "inline";
+
+            if ( 
+               (oppSelect == 0 && mySelect == 2) ||
+               (oppSelect == 1 && mySelect == 0) ||
+               (oppSelect == 2 && mySelect == 1)
+            ) {
+                textTag.innerHTML = "勝ちました！";
+                results[count] = "○"
+                count++;
+            } else if (
+                    (oppSelect == 0 && mySelect == 1) ||
+                    (oppSelect == 1 && mySelect == 2) ||
+                    (oppSelect == 2 && mySelect == 0)
+            ) {
+                textTag.innerHTML = "負けました…";
+                results[count] = "×"
+                count++;
+            } else if (oppSelect === mySelect) {
+                textTag.innerHTML = oppSelect !== 1 ? "あいこだよ" : "ダブルピース";
+            }
+
+            myimgTag.setAttribute("src", hands[mySelect] + ".png");
+            oppimgTag.setAttribute("src", hands[oppSelect] + ".png");
+
+            results.splice(3)
+            resultBlock.innerHTML = results.join("");
+           
+            let score1 = results.filter(score => score == "○")
+            console.log(score1)
+            let score2 = results.every(score => score != "・")
+            console.log(score2)
+            
+            if ((score1.length >= 2) && (score2 == true)) {
+                console.log("かち")
+            } else if (score2 == true) {
+                console.log("まけ")
+            } else {}
+        };
+
+        // ゲーム初期化
+        function resetGame() {
+        count = 0;
+        results = ["・","・","・"];
+        resultBlock.innerHTML = results.join("");
+        textTag.innerHTML = "じゃんけんしよう！";
+        myimgTag.style.display = "none";
+        oppimgTag.style.display = "none";
+        }
+        </script>
+    </body>
+</html>
