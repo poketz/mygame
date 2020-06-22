@@ -43,9 +43,6 @@
                 vertical-align: top;
                 transition: all 0.1s ease 0s;
             }
-            .btn:focus {
-                outline:0;
-            }
             .btn:hover {
                 cursor: pointer;
                 transform: scale(1.2, 1.2);
@@ -63,12 +60,15 @@
                 width: 50%;
                 margin: 0 auto;
             }
-
             .resetBtn {
                 position: absolute;
                 left: 70%;
-                bottom: 35px;
+                bottom: 60px;
                 display: none;
+                border-radius: 10px;
+            }
+            :focus {
+                outline:0;
             }
         </style>
     </head>
@@ -176,6 +176,7 @@
             textTag.style.fontSize = "30px";
             myimgTag.style.display = "none";
             oppimgTag.style.display = "none";
+            resetTag.style.display = "none";
         }
         </script>
     </body>
